@@ -146,7 +146,7 @@ With the `usbipd` service installed, we can grab the development board on the Wi
 
    Make note of the device name (it may be different for you), and ensure that group `dialout` has `rw` access to the device.
    
-   This is a good place to add yourself to the `dialup` group, so you don't need `sudo` to flash the device.
+   This is a good place to add yourself to the `dialout` group, so you don't need `sudo` to flash the device.
 
    ```
    $ sudo usermod -a -G dialout $USER
@@ -172,7 +172,7 @@ Follow the instructions on [Standard Toolchain Setup for Linux and macOS](https:
    >Important: The `esp-idf` is a shallow copy git repo, and the way to do updates is simply to **re-install it from `git clone`.**
 
    ```
-   $ mkdir -p ~/bin		# or ~/esp as the instructions have it
+   $ mkdir -p ~/bin		# or ~/esp
    $ cd ~/bin
    $ git clone --depth 1 --recursive https://github.com/espressif/esp-idf.git
 	```
@@ -204,7 +204,15 @@ Follow the instructions on [Standard Toolchain Setup for Linux and macOS](https:
    $ cd   # get out of ~/bin
    ```	
 
-## Build a sample
+## Sample project
+
+Note: Remember that you have the ESP-IDF environment variables set up (as mentioned earlier):
+
+```
+$ . ~/bin/esp-idf/export.sh
+```
+
+---
 
 Pick a folder where you'd have a sample project. Let's say `~/my`.
 
@@ -213,23 +221,17 @@ $ install -d my
 $ cd my
 ```
 
-Ensure ESP-IDF tools are available (as mentioned earlier):
-
-```
-$ . ~/bin/esp-idf/export.sh
-```
-
 Copy a sample project to this folder
 
 ```
-$ cp -r $IDF_PATH/examples/get-started/hello_world .
+$ cp -r $IDF_PATH/examples/get-started/hello_world hello
 ```
 
->Optional: Change "Hello, World" to - say - "Hello, ESP32" within the sources.
+```
+$ cd hello
+```
 
-```
-$ cd hello_world
-```
+>Optional: Change something in the sources, eg. "Hello world" to - say - "Hello ESP32". `nano main/hello_world_main.c`
 
 ```
 $ idf.py set-target esp32c3
@@ -239,20 +241,25 @@ This (likely??) is a one-time command, to instruct ESP-IDF which board we are ta
 
 >Optional: You can try `idf.py menuconfig` that allows all kinds of project settings to be changed. We are good with the defaults.
 
+
+### Build and flash
+
 ```
 $ idf.py build
 ```
 
-Produces a handful of files in `build/hello_world*`.
-
->Note: This is a debug build. Thus the big sizes of the target files.
-
-
-## Flash
+This builds the files `build/hello_world.*`:
 
 ```
-$ idf.py flash
+-rw-rw-r--  1 ubuntu ubuntu  184240 Dec 30 19:08 hello_world.bin
+-rwxrwxr-x  1 ubuntu ubuntu 3776388 Dec 30 19:08 hello_world.elf
+-rw-rw-r--  1 ubuntu ubuntu 3060919 Dec 30 19:08 hello_world.map
 ```
+
+>Note: The files look rather big, but this is a debug build.
+
+```
+$ idf.py flash```
 
 ![](.images/flash1.png)
 ![](.images/flash2.png)

@@ -164,7 +164,46 @@ It looks to the author, as if:
 
 ### Cave b. Mac + share device through Windows
 
+With Windows, we know that we have a working `usbipd` server setup. If Multipass is able to see that IP, it should be able to use the hardware connected in the PC computer.
+
+Yep!
+
+1. Get the Windows IP
+
+   ```
+   > ipconfig
+   ```
+
+2. Connect the device to Windows
+
+3. Multipass (under Mac): 
+
+   ```
+   $ usbip list -r 192.168.1.29
+   Exportable USB devices
+   ======================
+    - 192.168.1.29
+           3-1: Silicon Labs : CP210x UART Bridge (10c4:ea60)
+              : USB\VID_10C4&PID_EA60\BC2F214F809DED11AAFA5F84E259FB3E
+              : (Defined at Interface level) (00/00/00)
+              :  0 - Vendor Specific Class / unknown subclass / unknown protocol (ff/00/00)
+   ```
+   
+4. _
+
+   ```
+   $ usbip attach -r 192.168.1.29 -b 3-1
+   libusbip: error: udev_device_new_from_subsystem_sysname failed
+   usbip: error: open vhci_driver
+   ```
+
+Hmm.. *Same* error implies that there's something in the Multipass that's missing.
+   
 
 ### Cave c. IDE on Mac; rest in WSL
 
+
+## References
+
+- [How to install usbip vhci_hcd drivers on an AWS EC2 Ubuntu Kernel Version](https://askubuntu.com/questions/1303403/how-to-install-usbip-vhci-hcd-drivers-on-an-aws-ec2-ubuntu-kernel-version) (Ask Ubuntu; Dec 2020)
 
