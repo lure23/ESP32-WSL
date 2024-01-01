@@ -1,7 +1,9 @@
 # ESP32 on WSL
 
 Instructions on how to set up ESP32 toolchain using WSL2 and Windows. 
-Ideally, the approach can be expanded to cover macOS + Multipass VM as well, later.
+
+>If you rather work on Mac, see the very similar sister repo [ESP32 on Mac](https://github.com/lure23/ESP32-Mac).
+
 
 ## Aim ⛳️
 
@@ -32,14 +34,9 @@ The instructions have been tested on following boards:
 <!-- 
 Developed on:
 - Windows 10 Home
-   - CP210x device driver ((version here tbd.))
+   - CP210x universal Windows driver (11.3.0)
 - usbipd-win v. 4.0.0; via 'winget'
 - WSL version 2.0.14 (> wsl --version); Ubuntu 22.04.3 LTS
-
-Mac:
-- macOS 14.2.1
-- CP210x device driver v. 6.0.2
-- Multipass 1.13 RC
 -->
 
 
