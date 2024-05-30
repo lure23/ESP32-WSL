@@ -35,8 +35,8 @@ The instructions have been tested on following boards:
 Developed on:
 - Windows 10 Home
    - CP210x universal Windows driver (11.3.0)
-- usbipd-win v. 4.0.0; via 'winget'
-- WSL version 2.0.14 (> wsl --version); Ubuntu 22.04.3 LTS
+- usbipd-win v. 4.2.0; direct install
+- WSL version 2.1.5.0 (> wsl --version); Ubuntu 22.04.4 LTS
 -->
 
 
@@ -103,8 +103,6 @@ Without this, the USB stick wouldn’t have the right access rights (group `dial
 
 Read the instructions at the [project website](https://github.com/dorssel/usbipd-win) (GitHub).
 
->The author installed this using `winget` but you may decide to download the installer directly. Version 4.0.0.
-
 With the `usbipd` service installed, we can grab the development board on the Windows side.
 
 
@@ -125,12 +123,14 @@ With the `usbipd` service installed, we can grab the development board on the Wi
    Taking the particular device (see bus id, above) to use, for attaching to a client.
    
    ```
-   > usbipd attach —wsl —busid 3-1
+   > usbipd attach —-wsl —-busid 3-1
    ```
 
    ![](.images/usbipd-attach.png)
 
    Whereas `bind` are persisted over restarts, you will need to repeat the `usbipd attach` command every time you restart your computer.
+
+   >Note: Not sure if this is true any longer, with `usbipd` v.4.2.0. There may be ways to keep the attaching automatic. Please send a PR.
 
 - The device should now be seen under WSL:
 
@@ -256,7 +256,8 @@ This builds the files `build/hello_world.*`:
 >Note: The files look rather big, but this is a debug build.
 
 ```
-$ idf.py flash```
+$ idf.py flash
+```
 
 ![](.images/flash1.png)
 ![](.images/flash2.png)
