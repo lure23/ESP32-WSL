@@ -280,7 +280,7 @@ We can spot the "Hello, ESP32!" among the output. Great!!!
 >
 >|locale|break key|
 >|---|---|
->|en|`Ctrl-[`|
+>|en|`Ctrl-]`|
 >|se/fi|`Ctrl-¨`|
 >||*contribute your locale*|
 
@@ -289,7 +289,7 @@ We can spot the "Hello, ESP32!" among the output. Great!!!
 
 We have set up the development tools fully within WSL. On the Windows side, we needed to install one device driver and the `usbipd` server.
 
-All further work would happen solely within your WSL environment. You can install Rust, install IDE's that support WSL "remote development", or just develop with the tools we already went through.
+All further work would happen solely within your WSL environment. You can install IDE's that support WSL "remote development", or just develop with the tools we already went through.
 
 Make great things!
 
