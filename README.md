@@ -140,7 +140,7 @@ With the `usbipd` service installed, we can grab the development board on the Wi
    crw-rw---- 1 root dialout 188, 0 Dec 29 18:09 /dev/ttyUSB0
    ...
    ```
-
+   
    Make note of the device name (it may be different for you), and ensure that group `dialout` has `rw` access to the device.
    
    This is a good place to add yourself to the `dialout` group, so you don't need `sudo` to flash the device.
@@ -148,9 +148,33 @@ With the `usbipd` service installed, we can grab the development board on the Wi
    ```
    $ sudo usermod -a -G dialout $USER
    ```
+
+   You might also need to give the user rw permissions for the device file /dev/ttyUSB*.
+
+   ```
+   $ chmod 666 /dev/ttyUSB0
+   ```
    
    Fine? The rest of the steps will take place on the WSL side. We'll install ESP-IDF development tools and flash a sample program to your device.
 
+   Note: If your device is not seen under /dev/ttyUSB*, it might mean that the WSL kernel is missing the required USB-UART bridge kernel module for CP10x or CH341 chips. 
+
+   In that case, install your specific kernel module manually or via modprobe (if your kernel settings already has it listed as a module.). For example:
+
+   1. Check if your module is listed in the Kernel settings as "m" or "Module". If not, you will need to build a custom kernel. [Guide](https://askubuntu.com/questions/1373910/ch340-serial-device-doesnt-appear-in-dev-wsl/)
+
+   ```
+   $ gunzip -c /proc/config.gz | grep -i cp21
+   ...
+   CONFIG_USB_SERIAL_CP210X=m
+   ...
+   ```
+   
+   2. Install it via modprobe.
+
+   ```
+   $ sudo modprobe cp210x
+   ```
 
 ## Steps: Set up ESP-IDF
 
